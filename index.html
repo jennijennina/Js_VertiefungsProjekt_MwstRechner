@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ergebnisvorschau</title>
+    <link rel="stylesheet" href="assets/css/style.css" />
+  </head>
+
+  <body>
+    <p id="nameIt">Name it</p>
+    <button id="darkModeButton" class="darkModeButton">Change Theme</button>
+    <section id="nameItSection">
+      <div>
+        <header><h1>Mehrwertsteuer-Rechner</h1></header>
+
+        <form onsubmit="return false">
+          <div class="fieldStyle">
+            <p>Was soll berechnet werden?</p>
+            <div class="radio">
+              <input type="radio" name="radio" id="add" />
+              <label for="">Mehrwertsteuer aufschlagen (Netto zu Brutto)</label>
+            </div>
+            <div class="radio">
+              <input type="radio" name="radio" id="sub" />
+              <label for="">Mehrwertsteuer abziehen (Brutto zu Netto)</label>
+            </div>
+            <hr />
+          </div>
+          <div class="fieldStyle">
+            <p>Mehrwertsteuersatz</p>
+            <div class="radio">
+              <input type="radio" name="tax" id="radio19" value="19" />
+              <label for=""> 19 %</label>
+              <input type="radio" name="tax" id="radio7" value="7" />
+              <label for=""> 7 %</label>
+            </div>
+            <hr />
+          </div>
+          <div class="inputField">
+            <p id="auswahlFrage"></p>
+            <input type="number" id="userInput" />
+            <button id="btn" onclick="calculate()">Berechnen</button>
+          </div>
+          <div class="finalPrice">
+            <p>Ergebnis</p>
+            <hr />
+            <div class="fieldColor">
+              Mehrwertsteuerbetrag
+              <div id="mwstAmount"></div>
+            </div>
+            <hr />
+            <div class="fieldColor">
+              Bruttobetrag (Endpreis)
+              <div id="finalPrice"></div>
+            </div>
+          </div>
+          <hr />
+        </form>
+      </div>
+    </section>
+    <script src="assets/js/main.js"></script>
+  </body>
+</html>

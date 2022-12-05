@@ -6,49 +6,86 @@ darkModeButton.addEventListener("click", () => {
 // ab hier Mehrwertsteuer-Rechner
 // SCHRITT 2 Variablen benennen UND deklarieren
 // Was soll berechnet werden?
-const add = document.getElementById("add");
-const sub = document.getElementById("sub");
+const bruttoToNetto = document.getElementById("add");
+const nettoToBrutto = document.getElementById("sub");
 // Variablen Mehrwertsteuersatz
-let radio19 = document.getElementById("radio19");
-let radio7 = document.getElementById("radio7");
-// userInput
-let userInput = document.getElementById("userInput");
+let salesTax19 = document.getElementById("salesTax19");
+let salesTax7 = document.getElementById("salesTax7");
+// amountInput
+let amountInput = document.getElementById("amountInput");
 // Mehrwertsteuersatz-Variable
 let mwstSatz;
 // Ergebnis
 let mwstAmount = document.getElementById("mwstAmount");
-let finalPrice = document.getElementById("finalPrice");
-let auswahlFrage = document.getElementById("auswahlFrage");
+let finalPriceElement = document.getElementById("finalPrice");
+let calculatedSalesTax = document.getElementById("calculatedSalesTax");
 // Schritt 3 Callen
-function auswahl() {
+function select() {
   if (add.checked) {
-    auswahlFrage.innerHTML = `Nettobetrag (Preis ohne Mehrwertsteuer) in Euro*`;
+    select.innerHTML = `Nettobetrag (Preis ohne Mehrwertsteuer) in Euro*`;
   } else if (sub.checked) {
-    auswahlFrage.innerHTML = `Bruttobetrag (Preis inklusive Mehrwertsteuer) in Euro*`;
+    select.innerHTML = `Bruttobetrag (Preis inklusive Mehrwertsteuer) in Euro*`;
   }
 }
-// Ergebnis Funktion
+//  Ergebnis Funktion
+
 function calculate() {
-  auswahl();
-  if (add.checked && radio19.checked) {
-    let sumAdd = userInput.value * 1.19;
-    finalPrice.innerHTML = sumAdd.toFixed(2).replace(".", ",") + " €";
-    let sumSub = sumAdd - userInput.value;
-    mwstAmount.innerHTML = sumSub.toFixed(2).replace(".", ",") + " €";
-  } else if (add.checked && radio7.checked) {
-    let sumAdd = userInput.value * 1.07;
-    finalPrice.innerHTML = sumAdd.toFixed(2).replace(".", ",") + " €";
-    let sumSub = sumAdd - userInput.value;
-    mwstAmount.innerHTML = sumSub.toFixed(2).replace(".", ",") + " €";
-  } else if (sub.checked && radio19.checked) {
-    let sumAdd = userInput.value / 1.19;
-    finalPrice.innerHTML = sumAdd.toFixed(2).replace(".", ",") + " €";
-    let sumSub = userInput.value - sumAdd;
-    mwstAmount.innerHTML = sumSub.toFixed(2).replace(".", ",") + " €";
-  } else if (sub.checked && radio7.checked) {
-    let sumAdd = userInput.value / 1.07;
-    finalPrice.innerHTML = sumAdd.toFixed(2).replace(".", ",") + " €";
-    let sumSub = userInput.value - sumAdd;
-    mwstAmount.innerHTML = sumSub.toFixed(2).replace(".", ",") + " €";
+  select();
+  if (add.checked) {
+    calculateNettoToBrutto();
+  } else if (sub.checked) {
+    calculateBruttoToNetto();
   }
 }
+
+function calculateNettoToBrutto() {
+  let finalPrice = amountInput.value * getTax();
+  setFinalPrice(finalPrice);
+  setSalesTax(finalPrice - amountInput.value);
+}
+
+function calculateBruttoToNetto() {
+  let finalPrice = amountInput.value / getTax();
+  setFinalPrice(finalPrice);
+  setSalesTax(finalPrice - amountInput.value);
+}
+
+//  Gibt die ausgewählte MWST zurück
+function getTax() {
+  return salesTax19.checked ? 1.19 : 1.07;
+}
+
+function setFinalPrice(finalPrice) {
+  finalPriceElement.innerHTML = finalPrice.toFixed(2).replace(".", ",") + " €";
+}
+
+function setSalesTax(salesTax) {
+  mwstAmount.innerHTML = salesTax.toFixed(2).replace(".", ",") + " €";
+}
+
+/*function calculate() {
+  select();
+  if (add.checked && salesTax19.checked) {
+    let sumAdd = amountInput.value * 1.19;
+    finalPrice.innerHTML = sumAdd.toFixed(2).replace(".", ",") + " €";
+    let sumSub = sumAdd - amountInput.value;
+    mwstAmount.innerHTML = sumSub.toFixed(2).replace(".", ",") + " €";
+  } else if (add.checked && salesTax7.checked) {
+    let sumAdd = amountInput.value * 1.07;
+    finalPrice.innerHTML = sumAdd.toFixed(2).replace(".", ",") + " €";
+    let sumSub = sumAdd - amountInput.value;
+    mwstAmount.innerHTML = sumSub.toFixed(2).replace(".", ",") + " €";
+  } else if (sub.checked && salesTax19.checked) {
+    let sumAdd = amountInput.value / 1.19;
+    finalPrice.innerHTML = sumAdd.toFixed(2).replace(".", ",") + " €";
+    let sumSub = amountInput.value - sumAdd;
+    mwstAmount.innerHTML = sumSub.toFixed(2).replace(".", ",") + " €";
+  } else if (sub.checked && salesTax7.checked) {
+    let sumAdd = amountInput.value / 1.07;
+   function setFinalPrice(){
+  
+}
+    let sumSub = amountInput.value - sumAdd;
+    mwstAmount.innerHTML = sumSub.toFixed(2).replace(".", ",") + " €";
+  }
+}*/
